@@ -147,10 +147,7 @@ if __name__ == "__main__":
     def sphere(x):
         return np.sum(x**2)
     
-    def ConvexCombination(*arg):        
-        Alpha = np.array([self.objective_func(i) for i in arg])
-        Alpha = Alpha/Alpha.sum()
-        return np.array([i * j for i in arg for j in Alpha]).sum(axis=1)
+
     
     # Initialize optimizer
     rdo = RedDeerOptimization(sphere, 
