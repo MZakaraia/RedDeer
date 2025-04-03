@@ -13,7 +13,7 @@ class RedDeerOptimization:
         self.max_iter = max_iter
         self.verbose = verbose
         self.convexCounter = 0
-        self.convCurve = np.array([])
+        self.convergenceCurve = []
 
         # Validate inputs
         assert self.num_males < self.pop_size, "Number of males must be less than population size"
@@ -94,11 +94,11 @@ class RedDeerOptimization:
                 # Update global best
                 if self.fitness[0] < self.best_fitness:
                     self.best_solution, self.best_fitness = self.population[0], self.fitness[0]
-
+            self.convergenceCurve.append(self.best_fitness)
             # if self.verbose and (iteration % 10 == 0 or iteration == self.max_iter - 1):
             #     print(f"Iteration {iteration+1}/{self.max_iter}, Best Fitness: {self.best_fitness:.6f}")
-            self.convCurve = np.append(self.convCurve, self.best_fitness)
-        return self.best_solution, self.best_fitness, self.convCurve
+
+        return self.best_solution, self.best_fitness, np.array(self.convergenceCurve)
 
     def _calculate_harem_sizes(self, num_commanders, num_females):
         proportions = np.random.dirichlet(np.ones(num_commanders))
@@ -117,3 +117,16 @@ class RedDeerOptimization:
         mask = np.random.rand(self.dimensions) < 0.1
         noise = np.random.normal(0, 0.1, self.dimensions)
         return np.clip(individual + mask * noise, self.bounds[0], self.bounds[1])
+
+
+# # Example usage
+# if __name__ == "__main__":
+#     def sphere(x):
+#         return np.sum(x**2)
+
+#     rdo = RedDeerOptimization(sphere, dimensions=30, bounds=(-5.12, 5.12), population_size=50, num_males=15, roosting_males=0.4, max_iter=100)
+#     best_solution, best_fitness = rdo.optimize()
+
+#     print("\nOptimization Results:")
+#     print(f"Best Solution: {best_solution}")
+#     print(f"Best Fitness: {best_fitness:.6f}")
