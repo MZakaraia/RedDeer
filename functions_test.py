@@ -30,11 +30,11 @@ def griewank(x):
     prod_term = np.prod(np.cos(x / np.sqrt(np.arange(1, len(x) + 1))))
     return sum_term - prod_term + 1
 
-def langermann(xy):
+def langermann(x):
     m = 5 
     A = np.array([[3, 5], [5, 2], [2, 1], [1, 4], [7, 9]])  
     C = np.array([1, 2, 5, 2, 3])
-    x, y = xy
+    x, y = x[:2]
     total = 0
     for i in range(m):
         xi, yi = A[i]
@@ -63,18 +63,18 @@ def chaffer_n2(x):
     denominator = (1 + 0.001 * (x1**2 + x2**2))**2
     return 0.5 + numerator / denominator
 
-def schaffer_n4(xy):
-    x, y = xy
+def schaffer_n4(x):
+    x, y = x[:2]
     return 0.5 + (np.sin(x**2 + y**2)**2 - 0.5) / (1 + 0.001 * (x**2 + y**2))**2
 
-def shubert(xy):
-    x, y = xy
+def shubert(x):
+    x, y = x[:2]
     sum_x = np.sum([i * np.cos((i + 1) * x + i) for i in range(1, 6)])
     sum_y = np.sum([i * np.cos((i + 1) * y + i) for i in range(1, 6)])
     return sum_x * sum_y
 
-def bohachevsky(xy):
-    x, y = xy
+def bohachevsky(x):
+    x, y = x[:2]
     return (x**2 + y**2 - 0.3 * np.cos(3 * np.pi * x) - 0.4 * np.cos(4 * np.pi * y) + 0.7)
 
 def perm0_function(x):
@@ -94,8 +94,8 @@ def sum_of_different_powers(x):
 def sum_squares(x):
     return np.sum((np.arange(1, len(x) + 1)) * (x ** 2))
 
-def booth(xy):
-    x, y = xy
+def booth(x):
+    x, y = x[:2]
     return (x + 2*y - 7)**2 + (2*x + y - 5)**2
 
 def matyas(x):
@@ -107,6 +107,6 @@ def zakharov(x):
     term3 = np.sum(0.5 * np.arange(1, len(x) + 1) * x) ** 4
     return term1 + term2 + term3
 
-def three_hump_camel(xy):
-    x, y = xy
+def three_hump_camel(x):
+    x, y = x[:2]
     return 2 * x**2 - 1.05 * x**4 + (x**6) / 6 + x * y + y**2
